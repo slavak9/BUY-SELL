@@ -1,0 +1,49 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'products/css/video_player.css'%}">
+<div class="video_player_container">
+    <div id="screen__play_bt"><img src="{% static 'products/img/play-button_1.png' %}" alt=""></div>
+    <video class="video_player_animation_section" preload="metadata">
+        <source id="video-source" src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="video_player_controls_section">
+        <div class="video_player_progress_bar_container">
+            <div class="timeline-progress">
+                <div class="thumb-indicator"></div>
+                <time id="time-line-progress__display">00:00</time>
+            </div>
+        </div>
+        <div class="video_player_buttons_section">
+            <ul class="video_player_left_section_buttons">
+                <li>
+                    <button id="button_play_pause">
+                        <img id="play__button" src="{% static 'products/img/play_full.png' %}" alt="">
+                        <img id="pause__button" src="{% static 'products/img/pause_full.png' %}" alt="">
+                    </button>
+                </li>
+                <li>
+                    <button id="button_volume_mute">
+                        <img id="volume__mute" src="{% static 'products/img/mute_volume.png' %}" alt="">
+                        <img id="volume__unmute" src="{% static 'products/img/high_volume.png' %}" alt="">
+                        <img id="volume__media" src="{% static 'products/img/media_volume.png' %}" alt="">
+                    </button>
+                </li>
+                <li>
+                    <input id='volume__value' type="range" value="0.5" min="0" max="1" step="0.01">
+                </li>
+                <li id="video__time">
+                    <time id="video-time-elapsed">00:00</time>
+                    <span> / </span>
+                    <time id="video-duration">00:00</time>
+                </li>
+            </ul>
+            <div class="video_player_right_section_buttons">
+                <button id="change__screen">
+                    <img id="screen__max" src="img/stile 2/full_screen.png" alt="">
+                    <img id="screen__min" src="img/stile 2/min_screen.png" alt="">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'products/js/video_player.js' %}"></script>

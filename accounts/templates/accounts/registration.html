@@ -1,0 +1,64 @@
+{% extends 'main_app/main.html' %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block main %}
+<link rel="stylesheet" href="{% static 'accounts/css/registration.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<div class="form_registration_div">
+    <form method="post" id="registration-form-submit">
+        {% csrf_token %}
+        <div>
+            <ul class='form-submit-input-style'>
+            <li><label for="id_username">Username:</label>
+                <input id="id_username" class="fields_input_style" type="text" name="username"
+                    placeholder="Enter Username" autofocus="autofocus" required="">
+            </li>
+            <li id="username_error" class="hidden_error errors_style"></li>
+            <li>
+                <label for="id_password1">Password:</label>
+                <input id="id_password1" class="fields_input_style" type="password" name="password1" placeholder=""
+                    required="">
+            </li>
+            <li id="password1_error" class="errors_style"></li>
+            <li>
+                <label for="id_password2">Repeat Password:</label>
+                <input id="id_password2" class="fields_input_style" type="password" name="password2" placeholder=""
+                    required="">
+            </li>
+            <li id="password2_error" class="errors_style"></li>
+            <li>
+                <label for="id_email">E-mail:</label>
+                <input id="id_email" class="fields_input_style" type="email" name="email" placeholder="Enter E-mail"
+                    required="">
+            </li>
+            <li id="email_error" class="errors_style"></li>
+            <li>
+                <label for="id_first_name">First name:</label>
+                <input id="id_first_name" class="fields_input_style" type="text" name="first_name"
+                    placeholder="Enter your First name" required="">
+            </li>
+            <li id="first_name_error" class="hidden_error errors_style"></li>
+            <li>
+                <label for="id_last_name">Last name:</label>
+                <input id="id_last_name" class="fields_input_style" type="text" name="last_name"
+                    placeholder="Enter your Last name" required="">
+            </li>
+            <li id="last_name_error" class="hidden_error errors_style"></li>
+            <li>
+                <label for="id_date_of_birth">Date of Birth:</label>
+                <input id="id_date_of_birth" class="fields_input_style" type="date" name="date_of_birth"
+                    placeholder="Enter your date of birth" required="">
+            </li>
+            <li id="date_of_birth_error" class="hidden_error errors_style"></li>
+            </ul>
+        </div>
+        <button type="submit">Register</button>
+        <ul class="green-mes-style">
+        <li class="no_errors hidden_error"></li>
+        </ul>
+    </form>
+</div>
+<script src="{% static 'accounts/js/registration.js' %}"></script>
+{% endblock %}

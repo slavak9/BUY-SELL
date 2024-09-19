@@ -1,0 +1,227 @@
+*,
+* ::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* video container */
+.video_player_container {
+    position: relative;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* video tag */
+.video_player_animation_section {
+    width: 100%;
+}
+
+/* video controls */
+.video_player_controls_section {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    opacity: 1;
+    transition: opacity 150ms ease-in-out;
+}
+
+.video_player_controls_section::before {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    background: repeating-linear-gradient(to top, rgba(0, 0, 0, 0.801), transparent);
+    aspect-ratio: var(--height-aspect) / 1;
+    z-index: -1;
+    pointer-events: none;
+}
+
+
+/* progress bar */
+.video_player_progress_bar_container {
+    height: 6px;
+    margin-inline: 5px;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.timeline-progress {
+    background-color: lightslategray;
+    height: 3px;
+    width: 100%;
+    position: relative;
+}
+
+.video_player_progress_bar_container:hover .timeline-progress {
+    height: 100%;
+}
+
+.timeline-progress::before {
+    display: none;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: calc(100% - (var(--load-progress) * 100%));
+    background-color: rgb(228, 217, 201);
+}
+
+.timeline-progress::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: calc(100% - (var(--video-progress) * 100%));
+    background-color: #2ab7e6;
+}
+
+.timeline-progress .thumb-indicator {
+    --scale: 0;
+    position: absolute;
+    transform: translateX(-50%) scale(var(--scale));
+    height: 200%;
+    top: -50%;
+    left: calc(var(--video-progress) * 100%);
+    background-color: #11dadd;
+    border-radius: 50%;
+    transition: transform 150ms ease-in-out;
+    aspect-ratio: 1 / 1;
+    z-index: 1;
+}
+
+.video_player_progress_bar_container:hover .thumb-indicator {
+    --scale: 1;
+}
+
+.video_player_progress_bar_container:hover .timeline-progress::before {
+    display: block;
+}
+
+/* video controls buttons */
+.video_player_buttons_section {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.video_player_left_section_buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.video_player_left_section_buttons li {
+    display: flex;
+    margin-right: 10px;
+}
+
+#pause__button {
+    display: none;
+}
+
+.video_player_left_section_buttons button {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 150ms ease-in-out;
+}
+
+.video_player_left_section_buttons button:hover {
+    opacity: 1;
+}
+
+.video_player_left_section_buttons li button img {
+    width: 25px;
+}
+
+.video_player_left_section_buttons input {
+    width: 60px;
+}
+
+/* display time */
+#video__time {
+    font-size: 120%;
+    font-weight: 700;
+    color: #2ab7e6;
+    opacity: 0.8;
+}
+
+#time-line-progress__display {
+    background-color: rgba(0, 0, 0, 0.87);
+    color: #2ab7e6;
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    padding: 1px 4px;
+    border-radius: 4px;
+    right: calc((var(--display-mode) * 100%) - (var(--progress-time) * 100%));
+
+}
+
+.video_player_progress_bar_container:hover #time-line-progress__display {
+    display: block;
+}
+
+/* video controls button */
+.video_player_right_section_buttons button {
+    margin-right: 3px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 150ms ease-in-out
+}
+
+.video_player_right_section_buttons button:hover {
+    opacity: 1;
+}
+
+.video_player_right_section_buttons button img {
+    width: 25px;
+}
+
+#volume__mute {
+    display: none;
+}
+
+#volume__media {
+    display: none;
+}
+
+#screen__min {
+    display: none;
+}
+
+#screen__play_bt {
+    display: none;
+    position: absolute;
+    width: calc(var(--img-width) * 1px);
+    top: calc(var(--play-y-position) * 1px);
+    left: calc(var(--play-x-position) * 1px);
+}
+
+#screen__play_bt img {
+    width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+    #time-line-progress__display {
+        bottom: 35px;
+    }
+}

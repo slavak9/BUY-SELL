@@ -1,0 +1,101 @@
+.main_login_div{
+    display: flex;
+    justify-content: center;
+}
+
+.sub_login_div {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.login_error_message, 
+.field_login li, 
+#login-form-submit button{
+    font-size: 140%;
+}
+
+.login_error_message {
+    text-align: center;
+    color: red;
+}
+
+.field_login, .link_field{
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+.field_login{
+    flex-direction: column;
+}
+
+.link_field {
+    justify-content: space-between;
+    font-size: 120%;
+}
+.link_field a{
+    text-decoration: none;
+    color:black;
+    transition: opacity 0.20s;
+    
+}
+
+.link_field a:hover{
+    opacity: 0.80;
+}
+
+.field_login li{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+#login-form-submit {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form-submit input {
+    font-size: 70%;
+    margin-left: 15px;
+}
+
+
+#login-form-submit button {
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: transparent;
+    border: solid rgb(144, 144, 144) 1px;
+    transition: background-color 0.20s;
+    border-radius: 5px;
+}
+
+#login-form-submit button:hover{
+    background-color:rgb(66, 174, 241)
+}
+
+
+@media screen and (max-width:705px) {
+    #login-form-submit{
+        max-width: 350px;
+    }
+
+    .login_error_message {
+        font-size: 100%;
+    }
+
+    .login_error_message, 
+    .field_login li, 
+    .link_field,
+    #login-form-submit button{
+    font-size: 110%;
+}
+
+
+    
+
+
+}

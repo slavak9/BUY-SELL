@@ -1,0 +1,98 @@
+.form_registration_div, 
+#registration-form-submit,
+.form-submit-input-style li{
+    display: flex;
+}
+
+.form_registration_div {
+    justify-content: center;
+}
+
+#registration-form-submit {
+    max-width: 500px;
+    width: 100%;
+    flex-direction: column;
+}
+
+#registration-form-submit div {
+    margin: 20px 0;
+}
+.form-submit-input-style{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#registration-form-submit button,
+.form-submit-input-style li{
+    font-size: 140%;
+}
+
+.form-submit-input-style li{
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fields_input_style {
+    font-size: 70%;
+}
+
+#id_date_of_birth {
+    font-size: 90%;
+}
+
+
+#registration-form-submit button {
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: transparent;
+    border: solid rgb(144, 144, 144) 1px;
+    transition: background-color 0.20s;
+    border-radius: 5px;
+}
+
+#registration-form-submit button:hover{
+    background-color:rgb(66, 174, 241)
+}
+
+.green-mes-style{
+    list-style: none;
+    padding: 0;
+}
+
+.hidden_error {
+    display: none;
+}
+
+.errors_style {
+    margin: 0;
+    text-align: center;
+    color: red;
+    margin: 15px 0;
+}
+
+.field_error_style {
+    border-color: red;
+}
+
+.no_errors {
+    color: rgb(64, 162, 49);
+    text-align: center;
+}
+
+@media screen and (max-width:705px) {
+    #registration-form-submit li, 
+    #registration-form-submit button{
+        font-size: 110%;
+    }
+
+    #id_date_of_birth {
+        font-size: 75%;
+    }
+
+    #registration-form-submit {
+        max-width: 350px;
+    }
+
+}

@@ -1,0 +1,136 @@
+
+{% extends 'main_app/main.html' %}
+
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block main %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'products/css/product_item.css' %}">
+<main class="main_content_sub">
+    <div class="wrap_cat_div_con">
+        <header class="product_container_grid">
+            <!-- change main img to sub  -->
+            <div class="img_grid_item">
+                {% for img in product_img %}
+                {%if img.is_main == True %}
+                <a href="{% url 'gallery' detail_product.slug %}" id="gallery__url">
+                    <div class="main-product-img-cont">
+                        <img id="main-product-img" src="{{img.img_file.url}}">
+                    </div>
+                </a>
+                {% endif %}
+                {% endfor %}
+                <ul class="product_img_grid">
+                    {% for img in product_img %}
+                    <li id="sub-product-img-container" onmouseenter="changeIMG('img_{{img.id}}')">
+                        <img id="img_{{img.id}}" src="{{img.img_file.url}}" width="100%">
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- product title and information  -->
+            <header class="title_grid_item">
+                <h1>{{ detail_product.title}}</h1>
+            </header>
+            <div class="description_grid_item">
+                {% if main_info%}
+                {%for val in main_info%}
+                <p><span>{{val.name}}:</span><strong> {{val.value}}</strong></p>
+                {%endfor%}
+                {%endif%}
+            </div>
+            <!-- adding product in the cart actions -->
+            <div class="cart-info_grid_item">
+                <div class="info">
+                    <h3 class="price-h3-style" data-price="{{detail_product.price}}">
+                        <strong>{{ detail_product.price|floatformat:2|slice:":-3" }}</strong>,{{ detail_product.price|floatformat:2|slice:"-2:" }}$
+                    </h3> 
+                    <p>some text here, example delivery information sdfg kjlhjio kjlsdhf glsdfgsdfg</p>
+                </div>
+                <!-- quantity elaboration -->
+                <div class="quantity">
+                    <span class="display_quantity">Quantity</span>
+                    <div class="minus_plus">
+                        <button id="minus__bt">
+                            <img src="{% static 'products/img/minus.png' %}" alt="minus_button">
+                        </button>
+                        <label>
+                            <input type="number" value="1" title="Quantity value" class="input_Product_Quantity" data-product="{{ detail_product.product_id }}">
+                        </label>
+                        <button id="plus__bt">
+                            <img src="{% static 'products/img/plus.png' %}" alt="plus_button">
+                        </button>
+                    </div>
+                    <span class="display_error_quantity">Quantity must be from 1 to
+                        <span>{{ detail_product.quantity }}</span></span>
+                    <span class="display_quantity_in_store">Quantity available: {{ detail_product.quantity }}</span>
+                </div>
+                <!-- button buy section -->
+                <div class="buy">
+                    <form id="add-item-form" method="post">
+                        {% csrf_token %}
+                        <button id="id_add_cart">add to cart</button>
+                        <button id="id_cart_redirect">buy now</button>
+                    </form>
+                    <p class="buy_form_message"></p>
+                </div>
+            </div>
+        </header>
+        <main class="product_other_info">
+            <div id="video_div_container" class="video-div-container">
+            {% if product_video %}
+                {% for video in product_video %}
+                <video id="video_play" class="sub-video-player" controls >
+                    <source id="video_src_1" src="{{video.video_file.url}}">
+                </video>
+                {% endfor %}
+            {% endif %}
+            </div>
+            {% if product_description %}
+            <nav id="nav-display_con" class="nav-display-con">
+                <a href="#product-spesif-title">spesification</a>
+                <a id="more-info-item" href="#video_div_container">more information</a>
+            </nav>
+           
+            <div class="add-block-des">
+                <div class="var-block-des display_none">
+
+                {% if product_description.title %}
+                <h2 class="d-t-h2">{{product_description.title}}</h2>
+                {% endif %}
+
+                {% if text_description %}
+                {% for text in text_description%}
+                <p>
+                    {% autoescape off %}
+                    {{text.text_description}}
+                    {% endautoescape %}
+                </p>
+                {% if text.images %}
+                {% for img in text.images%}
+                <div class="img-div-info"><img src="{{ img.img_file.url}}" alt=""></div>
+                {%endfor%}
+                {% endif %}
+                {%endfor%}
+                {% endif %}
+
+                </div>
+                {% if table_description %}
+                <h2 id="product-spesif-title">Spesification of product</h2>
+                {% autoescape off %}
+                <div class="product-spesif-table"><table>{{table_description.table}}</table></div>
+                {% endautoescape %}
+                {% endif %}
+            </div>
+            {% endif %}
+            <div>
+                <h1>this is feadback area</h1>
+            </div>
+        </main>
+    </div>
+</main>
+
+<script src="{% static 'products/js/product_item.js' %}"></script>
+{% endblock %}

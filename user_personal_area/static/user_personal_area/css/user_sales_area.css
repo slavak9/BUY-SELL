@@ -1,0 +1,223 @@
+body,
+.main_container,
+.sub_nav_div,
+.sub_button_div,
+.button_nested_container,
+.is_published_label,
+.display_flex{
+    display: flex;
+}
+
+body{
+    justify-content: center;
+    background-color: lightcyan;
+}
+.display_none{
+    display: none;
+}
+.main_container,
+.sub_nav_div{
+    flex-direction: column;
+}
+
+.main_container{
+    align-items: center;
+    max-width: 1400px;
+    width: 100%;
+}
+
+/* section add items */
+.add_items {
+    max-width: 400px;
+    margin: 20px 10px;
+}
+
+.add_items, .add_items button{
+    width: 100%;
+}
+
+.add_items button{
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: transparent;
+    border: solid rgb(144, 144, 144) 1px;
+    transition: background-color 0.20s;
+    border-radius: 3px;
+    font-size: 140%;
+}
+
+
+.button_nested_container{
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.button_nested_container img{
+    width: 20px;
+    margin-left: 10px;
+}
+
+/* middle navigation container */
+
+.middle_nav{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    gap: 5px;
+}
+
+.sub_nav_div{
+    border-bottom: solid black 1px;
+    justify-content: flex-end;
+}
+
+.sub_nav_div header{
+    font-weight: 600;
+    text-align: center;
+    margin: 8px 0;
+    word-break: break-word;
+}
+.sub_img_div{
+    position: relative;
+}
+.confirm_del_item{
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 97%;
+    z-index: 1;
+    padding: 5px 0;
+}
+.conf_del_st{
+    display: flex;
+    justify-content: space-evenly;
+    width: 60%;
+}
+.conf_del_st button{
+    width: 100%;
+    background-color: #22cccc20;
+    border: 1px solid black;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.confirm_del_item p{
+    margin: 0;
+    padding: 0 3px;
+    text-align: center;
+    font-size: 85%;
+}
+.confirm_del_item div{
+    padding: 10px 0;
+}
+.filter{
+    filter: blur(6px);
+}
+
+.sub_img_div img{
+    width: 100%;
+}
+
+.sub_button_div{
+    justify-content: space-around;
+    margin: 8px 0;
+}
+
+.sub_button_div div{
+    width: 27px;
+    height: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.sub_button_div button{
+    border:none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+
+.sub_button_div img{
+    width: 25px;
+}
+
+.checked_view,
+.unchecked_view{
+    height: 17px;
+    cursor: pointer;
+}
+
+.make-publish-img .checked_view {
+display: none;
+}
+
+.make-publish-img input:checked~.unchecked_view {
+display: none;
+}
+
+.make-publish-img input:checked~.checked_view {
+display: block;
+}
+
+/*-------------------------------*/
+@media(hover: hover){
+    .img_class:hover {
+        width: 27px;
+    }
+    .sub_nav_div:hover{
+        border-bottom: none;
+        border-radius: 3px;
+        box-shadow: 0 0 4px 4px #8080809e;
+    }
+    .add_items button:hover{
+        background-color:rgb(66, 174, 241);
+    }
+    .conf_del_st button:hover{
+        background-color: #22cccc80;
+    }
+    .checked_view:hover,
+    .unchecked_view:hover{
+    height: 19px;
+    }
+}
+
+@media screen and (max-width:1100px){
+    .middle_nav{
+        grid-template-columns: repeat(5,1fr);
+    }
+
+}
+
+@media screen and (max-width:800px){
+    .middle_nav{
+        grid-template-columns: repeat(4,1fr);
+    }
+    .add_items button {
+        font-size: 120%;
+    }
+
+}
+
+@media screen and (max-width:630px){
+    .middle_nav{
+        grid-template-columns: repeat(3,1fr);
+    }
+    .add_items {
+        max-width: 300px;
+    }
+
+}
+
+@media screen and (max-width:450px){
+    .middle_nav{
+        grid-template-columns: repeat(2,1fr);
+    }
+ 
+@media screen and (max-width:280px){
+    .confirm_del_item p{
+        font-size: 70%;
+    }
+}
+}

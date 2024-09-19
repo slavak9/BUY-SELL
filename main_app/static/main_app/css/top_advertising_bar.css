@@ -1,0 +1,11 @@
+.advertising_section{
+    background-color: lightcoral;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.advertising_section {}
+.advertising_img {width: 180px;}
+.nav_arrow_png{width: 30px;}
+

@@ -1,0 +1,258 @@
+{% extends 'main_app/main.html'%}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block main %}
+<link rel="stylesheet" href="{% static 'management/css/manage_category.css' %}">
+</link>
+<div class='grid_con_cl'>
+    <!--
+    <div class="confirm-cont-mess"><p>are you shure</p>
+        <div><button>yes</button><button>no</button></div>
+    </div>
+-->
+    <!-- Category block -->
+    <div class="category_list_con">
+        <!-- Create new category block -->
+        <ul class="compile_list_cat">
+            <li id="input_s-1-cs" class="input_s-1">
+                <label for="id_name-category">Category:</label>
+                <input id="id_name-category" class="" type="text" placeholder="Enter Name of Category" required>
+                {% csrf_token %}
+            </li>
+            <li class="input_s-2">
+                <label for="id_is_published">Is Published:</label>
+                <input id="id_is_published" class="fields_input_style" type="checkbox" name="is_published" checked>
+            </li>
+            <li class="input_s-3">
+                <button id="cat_send_bt">Create Category</button>
+            </li>
+            <li class="input_s-4">
+                <img id="cat_edit_bt" class='img_class' src="{% static 'management/img/edit.png' %}" alt="edit png"
+                    title="Edit Category">
+            </li>
+        </ul>
+        <!-- Image Category block -->
+        <div class="img_show_cat">
+            <div class="img-container-c">
+                <label for="input-file-c" id="drop-area-c">
+                    <input id="input-file-c" type="file" accept="image/*" hidden required>
+                    <div id="view_container-c" class="img_view_container background">
+                        <img src="{% static 'user_personal_area/img/image-upload.png' %}" alt='upload img'
+                            id='upload_img-c' class="img-count-dt"
+                            data-image="{% static 'user_personal_area/img/image-upload.png' %}">
+                        <p class="img_text-c img_text-p">Drag and drop, or click here <br>to upload image</p>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+
+        <!-- List category block -->
+        <div class="cat_block_div">
+            <div class="wrapper_block_c">
+                <header class="cat_list_head">
+                    <h4 id="head-h4-c" class="head-h4">chose category</h4>
+                    <img id="down_img" class="img_down_{{value.id}}"
+                        src="{% static 'user_personal_area/img/down-arrow.png' %}">
+                    <img id='up_img' class="img_up_{{value.id}} display_none"
+                        src="{% static 'user_personal_area/img/up-arrow.png' %}">
+                </header>
+                <div class="list_cat_name">
+                    <ul id="list_cat_ul-c" class="list_cat_ul_c display_none">
+                        <li>
+                            <input id="search_bar_cat" class="search_bar_input" type="text" name=""
+                                placeholder="any key for search">
+                        </li>
+                        {% for value in category_data %}
+                        <li class="name-category-type display_flex" data-image="{{value.img_categories.url}}">
+                            <span>{{value.name}}</span>
+                            <div class="cat_double_input">
+
+                                <div class="img_edit_cont" data-name="{{value.name}}" data-id="{{value.id}}"
+                                    data-published="{{value.is_published}}">
+                                    <img class='img_class' src="{% static 'management/img/edit.png' %}" alt="edit png"
+                                        title="Edit Category">
+                                </div>
+
+                                <label for="{{value.name}}-{{value.id}}" class="label_input_cat">
+                                    <input id="{{value.name}}-{{value.id}}" class="input_check_cat" type="radio"
+                                        name="category" value="{{value.id}}" hidden>
+                                    <img class='checked img_class' src="{% static 'main_app/img/round_checked.png' %}"
+                                        alt="checked png">
+                                    <img class='unchecked img_class'
+                                        src="{% static 'main_app/img/round_unchecked.png' %}" alt="checked png"
+                                        title="Chose Category">
+                                </label>
+
+                                <div class="label_input_v">
+                                    {% if value.is_published %}
+                                    <img class='checked_view img_class'
+                                        src="{% static 'user_personal_area/img/view.png' %}" title="Published">
+                                    {% else %}
+                                    <img class='unchecked_view img_class'
+                                        src="{% static 'user_personal_area/img/unview.png' %}" title="Not Published">
+                                    {%endif%}
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div id="error_mess_category" class="error_mess_category"></div>
+        </div>
+    </div>
+
+    <!-- Create new Sub Category block -->
+    <div class="category_list_con">
+        <ul class="compile_list_cat">
+            <li class="input_s-1">
+                <label for="id_name-sub-category">Sub Category:</label>
+                <input id="id_name-sub-category" class="fields_input_style" type="text"
+                    placeholder="Enter name of Item Category" required="">
+            </li>
+            <li class="input_s-2">
+                <label for="id_is_published_sub">Is Published:</label>
+                <input id="id_is_published_sub" class="fields_input_style" type="checkbox" name="is_published" checked>
+            </li>
+            <li class="input_s-3">
+                <button id="cat_item_send_bt">Create Sub Category</button>
+            </li>
+            <li class="input_s-4">
+                <img id="cat_sub_edit_bt" class='img_class' src="{% static 'management/img/edit.png' %}" alt="edit png"
+                    title="Edit Sub Category">
+            </li>
+        </ul>
+        <!-- Sub category image block -->
+
+        <div class="img_show_cat">
+            <div class="img-container-c">
+                <label for="input-file-i" id="drop-area-i">
+                    <input id="input-file-i" type="file" accept="image/*" hidden required>
+                    <div id="view_container-i" class="img_view_container background">
+                        <img src="{% static 'user_personal_area/img/image-upload.png' %}" alt='upload img'
+                            id='upload_img-i' class="img-count-dt"
+                            data-image="{% static 'user_personal_area/img/image-upload.png' %}">
+                        <p class="img_text-i img_text-p">Drag and drop, or click here <br>to upload image</p>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Sub category list block -->
+        <div class="cat_block_div">
+            <div class="cat_block_div-wrapper">
+                <div class="wrapper_block_i">
+                    <header class="cat_list_head">
+                        <h4 class="head-h4">sub categories</h4>
+                        <img id="down_img" class="img_down_{{value.id}}"
+                            src="{% static 'user_personal_area/img/down-arrow.png' %}">
+                        <img id='up_img' class="img_up_{{value.id}} display_none"
+                            src="{% static 'user_personal_area/img/up-arrow.png' %}">
+                    </header>
+                    <div class="list_cat_name">
+                        <ul id="list_cat_ul-i" class="list_cat_ul_i">
+                            <li>
+                                <input id="search_bar_it" class="search_bar_input" type="text" name=""
+                                    placeholder="any key for search">
+                            </li>
+                            {% for value in category_items %}
+                            <li class="name-category-type-i display_flex" data-id="{{value.category_id_id}}"
+                                data-image="{{value.img_item_category.url}}"><span>{{value.name}}</span>
+                                <div class="label_input_it">
+                                    <div class="img_edit_cont" data-name="{{value.name}}" data-slug="{{value.slug}}"
+                                        data-id="{{value.id}}" data-published="{{value.is_published}}">
+                                        <img class='img_class' src="{% static 'management/img/edit.png' %}"
+                                            alt="edit png" title="Edit Sub Category">
+                                    </div>
+                                    {% if value.is_published %}
+                                    <img class='checked_it img_class'
+                                        src="{% static 'user_personal_area/img/view.png' %}" title="Published">
+                                    {% else %}
+                                    <img class='unchecked_it img_class'
+                                        src="{% static 'user_personal_area/img/unview.png' %}" title="Not Published">
+                                    {%endif%}
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div id="error_mess_sub_category" class="error_mess_category"></div>
+                <div class="add_field_cont_wrapp">
+                    <div class="add_field_container">
+                        <ul class="input_name_f">
+                            <li>
+                                <label for="add_type_field">Name:</label>
+                                <input id="add_type_field" type="text"
+                                    placeholder="Field name UAM mm, cm, l. Select: name(value)">
+                            </li>
+                        </ul>
+                        <ul class="input_name_t">
+                            <li class="li_con_type">
+                                <label for="integer">Integer:
+                                    <input id="integer" name="type" type="radio"></label>
+                            </li>
+                            <li class="li_con_type">
+                                <label for="string">String:
+                                    <input id="string" name="type" type="radio"></label>
+                            </li>
+                            <li class="li_con_type">
+                                <label for="decimal">Decimal:
+                                    <input id="decimal" name="type" type="radio"></label>
+                            </li>
+                            <li class="li_con_type">
+                                <label for="select">Select:
+                                    <input id="select" name="type" type="radio"></label>
+                            </li>
+                            <li class="li_con_type">
+                                <label for="check">Check:
+                                    <input id="check" name="type" type="radio"></label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="add_img_cont"><img id="action_add-name" class='add_bt_class'
+                            src="{% static 'management/img/plus.png' %}"></div>
+                </div>
+                <div id="display-files-select" class="display_none"><label for="file_names_select"><b><i>Select .TXT
+                                file list with names separated by commas.</i></b>
+                        <input id="file_names_select" name="file" type="file" accept="text/plain">
+                    </label></div>
+                <p class="Err_file-mes-sel display_none"> File error: make sure that file is .txt format</p>
+                <!-- field added for aditional -->
+                <div>
+                    <ul class="show_list_of_add" data-img="{% static 'management/img/trash.png' %}"
+                        data-image="{% static 'management/img/list_tasks.png' %}"></ul>
+                </div>
+                <div id="dis-fi-s-cat">
+                </div>
+            </div>
+            <div class="div_s_l_o_a_i display_none">
+                <div class="close-sub-win-div"><img id="close-sub-win" src="{% static 'management/img/close.png' %}"
+                        title="Close"></div>
+                <h3 class="title_o_t_f"></h3>
+                <div>
+
+                    <div class="sub_n_d_c">
+                        <div class="sub_i_c_f"><label for="add_item_field"><b>Name of the field:</b></label>
+                            <input id="add_item_field" type="text" placeholder="name of the field for list">
+                        </div>
+                        <div class="add_img_cont"><img id="action_add-sub_f" class='add_bt_class'
+                                src="{% static 'management/img/plus.png' %}"></div>
+                    </div>
+                    <div class="display-sub_files-select">
+                        <label for="file_names_select-items"><b><i>Select .TXT file list with names separated by
+                                    commas.</i></b>
+                            <input id="file_names_select-items" name="file" type="file" accept="text/plain"></label>
+                    </div>
+
+                    <p class="Err_file-mes display_none"> File error: make shure that file is .txt format</p>
+                </div>
+                <ul class="show_list_of_add-items" data-img="{% static 'management/img/trash.png' %}"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'management/js/management.js' %}" type="text/javascript"></script>
+{% endblock %}

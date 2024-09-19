@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'shopping_cart/css/order_information.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="main_order_container">
+        <!--add address container window -->
+        <div class="main_add_address_container">
+            <div class="form_add_address">
+                <div>
+                    <h1>Shipping address form</h1>
+                </div>
+                <ul>
+                    <li>
+                        <label for="id_country"><b>Country: <i>*</i> </b></label>
+                        <input id="id_country" name="country" type="text" placeholder="Enter country" required
+                            maxlength="50" >
+                    </li>
+                    {% if address_form_error.country %}
+                        <ul class="errorlist">
+                            <li>
+                        {{address_form_error.country}}
+                            </li>
+                        </ul>
+                    {% endif %}
+                    <li>
+                        <label for="id_region"><b>Region: <i>*</i></b></label>
+                        <input id="id_region" name="region" type="text" placeholder="Enter region" required
+                            maxlength="50">
+                    </li>
+                    {% if address_form_error.region %}
+                    <ul class="errorlist">
+                        <li>
+                    {{address_form_error.region}}
+                        </li>
+                    </ul>
+                    {% endif %}
+                    <li>
+                        <label for="id_locality_or_city"><b>Locality or City: <i>*</i></b></label>
+                        <input id="id_locality_or_city" name="locality_or_city" type="text"
+                            placeholder="Enter locality or city" required maxlength="50">
+                    </li>
+                    {% if address_form_error.locality_or_city %}
+                    <ul class="errorlist">
+                        <li>
+                    {{address_form_error.locality_or_city}}
+                        </li>
+                    </ul>
+                    {% endif %}
+                    <li>
+                        <label for="id_street"><b>Street: <i>*</i></b></label>
+                        <input id="id_street" name="street" type="text" placeholder="Enter street" required
+                            maxlength="50">
+                    </li>
+                    {% if address_form_error.street %}
+                    <ul class="errorlist">
+                        <li>
+                    {{address_form_error.street}}
+                        </li>
+                    </ul>
+                    {% endif %}
+                    <li>
+                        <label for="id_home_apartment"><b>Home or Apartment: <i>*</i></b></label>
+                        <input id="id_home_apartment" name="home_apartment" type="text"
+                            placeholder="Enter house/apartment number" required maxlength="20">
+                    </li>
+                    {% if address_form_error.home_apartment %}
+                    <ul class="errorlist">
+                        <li>
+                    {{address_form_error.home_apartment}}
+                        </li>
+                    </ul>
+                    {% endif %}
+                    <li>
+                        <label for="id_postal_zip_code"><b>Zip postal code: <i>*</i></b></label>
+                        <input id="id_postal_zip_code" name="postal_zip_code" type="text"
+                            placeholder="Enter postal zip code" required maxlength="20">
+                    </li>
+                    {% if address_form_error.postal_zip_code %}
+                    <ul class="errorlist">
+                        <li>
+                    {{address_form_error.postal_zip_code}}
+                        </li>
+                    </ul>
+                    {% endif %}
+                    <li>
+                        <label for="id_phone_number"><b>Phone number: <i>*</i></b></label>
+                        <input id="id_phone_number" type="tel" name="phone_number" placeholder="with country code"
+                            required maxlength="16">
+                    </li>
+                    {% if address_form_error.phone_number %}
+                    <ul class="errorlist">
+                        <li>
+                    {{address_form_error.phone_number}}
+                        </li>
+                    </ul>
+                    {% endif %}
+                    <li>
+                        <label for="id_other_information"> <b>Additional information: </b></label>
+                        <textarea id="id_other_information" name="other_information" placeholder="max 200 symbols"
+                            maxlength="200"></textarea>
+                    </li>
+                </ul>
+                <div class='address_form_bt_cont'>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button class="button_send_form" type="submit">Add</button>
+                    </form>
+                    <button class="button_send_close" type="submit">Close</button>
+                </div>
+            </div>
+           
+        </div>
+
+        <!-- display address window to (modify,delete) address -->
+
+        {% if shipping_addresses %}
+        <div class="outer_change_address_container">
+            <div class="middle_change_address_container">
+                {% if error_address_modification %}
+                <div class="show_error_quantity_address">
+                    <strong>{{error_address_modification}}</strong>
+                </div>
+                {% endif %}
+                {%for address in shipping_addresses%}
+                {{ address.values }}
+                    <div class="inner_change_address_container" data-address_id="{{address.id}}">
+                        <div class="check_address_container">
+                            <label for="radio_{{address.id}}" class="radio_check_container">
+                                {% if address.is_chosen %}
+                                <input id="radio_{{address.id}}" type="radio" name="address_selected" checked="checked"
+                                    value="{{address.id}}">
+                                {% else %}
+                                <input id="radio_{{address.id}}" type="radio" name="address_selected" value="{{address.id}}">
+                                {% endif %}
+                                <img class="unchecked" src="{% static 'shopping_cart/img/round_unchecked.png' %}"
+                                    alt="checked png">
+                                <img class="checked" src="{% static 'shopping_cart/img/round_checked.png' %}" alt="checked png">
+                            </label>
+                        </div>
+                        <div id="display_address_{{address.id}}" class="display_address_info_container">
+                            
+                            <ul>
+                                <li><strong class="id_country_{{address.id}}">{{address.country }}</strong>
+                                    <strong class="id_region_{{address.id}}">{{address.region }}</strong>
+                                    <strong class="id_locality_or_city_{{address.id}}">{{address.locality_or_city }}</strong>
+                                </li>
+                                <li><strong class="id_street_{{address.id}}">{{address.street}}</strong>
+                                    <strong class="id_home_apartment_{{address.id}}">{{address.home_apartment}}</strong>
+                                    <strong class="id_postal_zip_code_{{address.id}}">{{address.postal_zip_code}}</strong>
+                                </li>
+                                <li><strong class="id_phone_number_{{address.id}}">{{address.phone_number}}</strong>
+                                    <strong class="id_other_information_{{address.id}}"
+                                        style="display: none;">{{address.other_information}}</strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="delete_edit_container">
+                            <div class="delete_img_container">
+                                <button title="delete address"><img src="{% static 'shopping_cart/img/trash.png' %}"
+                                        alt="trash img" id="delete_addresses_button_{{address.id}}"></button>
+                            </div>
+                            <div class="edit_img_container">
+                                <button title="edit address"><img src="{% static 'shopping_cart/img/edit.png' %}" alt="edit img"
+                                        id="edit_addresses_button_{{address.id}}"></button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="addres_modif_bt_container">
+                    {% if shipping_addresses|length < 4 %}
+                    <div class="sub_cont">
+                        <button class="button_add_address"> Add address </button>
+                    </div>
+                    {% endif %}
+                    <div class="save_addresses_button_container sub_cont">
+                        <form method="post">
+                            {% csrf_token %}
+                            <button id="save_addresses_button" type="submit">Save</button>
+                        </form>
+                    </div>
+                    <div class="sub_cont">
+                        <button class="close_bt_addr_window"> Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if error_addresses_modification %}
+        <div class="show_error_modification_address">
+            <strong>{{error_addresses_modification}}</strong>
+        </div>
+        {% endif %}
+
+        <!--modify address container window -->
+
+        <div class=" sub_order_container">
+            {% if shipping_address %}
+            <!-- display address container and write an address if address exist -->
+            <div class="main_address_container">
+                <div class="sign_info_">
+                    <h1>shipping address</h1>
+                </div>
+                <div class="display_address_container">
+                    <div class="main_info_container">
+                        <p><strong>{{shipping_address.country }}</strong>
+                            <strong>{{shipping_address.region }}</strong>
+                            <strong>{{shipping_address.locality_or_city }}</strong>
+                        </p>
+                        <p><strong>{{shipping_address.street}}</strong>
+                            <strong>{{shipping_address.home_apartment}}</strong>
+                            <strong>{{shipping_address.postal_zip_code}}</strong>
+                        </p>
+                        <p><strong>{{shipping_address.phone_number}}</strong></p>
+                    </div>
+                    <div class="aditional_info_container">
+                        <p>{{shipping_address.other_information}}
+                        </p>
+                    </div>
+                </div>
+                <div class="button_address_container">
+                    <form method="post">
+                        {% csrf_token %}
+                        <button id="manage_addresses_button" type="submit">Manage address</button>
+                    </form>
+                </div>
+            </div>
+
+            {% else %}
+            <!-- display address container if address dose not exist -->
+            <div class="main_address_container_none">
+                <div>
+                    <h1>shipping address</h1>
+                </div>
+                <div class="button_address_add">
+                    <button class="button_add_address"> add address </button>
+                </div>
+            </div>
+            {% endif %}
+
+
+
+
+
+
+
+            <!-- displaying credit cart container -->
+            <div class="trans_credit_conferm_container">
+                <div class="main_creditcart_container">
+                    <p>credit cart section</p>
+                </div>
+                <div class="main_transport_container">
+                    <p>transport info section</p>
+                </div>
+                <!-- confirm container to buy products with data -->
+                <div class="main_confirm_container">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="text" name="another_form" value="form2">
+                        <button type="submit">submit</button>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+            {{user_id}}
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="{% static 'shopping_cart/js/order_information.js' %}"></script>
+
+</html>

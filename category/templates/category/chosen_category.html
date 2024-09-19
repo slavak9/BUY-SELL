@@ -1,0 +1,23 @@
+{% extends 'main_app/main.html'%}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block main %}
+<main class="main_content_sub">
+    <div class="wrap_cat_div_con">
+        <div class="category_grid_container">
+            {% for item in chosen %}
+        <a href=" {{ item.get_absolute_url }}">
+            <div>
+                {% if item.img_item_category %}
+                {{item.img_file.url}}
+                <img src="{{item.img_item_category.url}}" alt="img not found">
+                {% endif %}
+                <p class="category_description">{{item.name}}</p>
+            </div>
+        </a>
+        {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

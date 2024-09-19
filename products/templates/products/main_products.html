@@ -1,0 +1,25 @@
+{% extends 'main_app/main.html'%}
+{% load mathfilters %}
+{% block title %}{{title}}{% endblock %}
+
+{% block main %}
+<main class="main_content_sub">
+    <div class="wrap_cat_div_con">
+        <div class="category_grid_container">
+            {% for item in products %}
+        <a href="{% url 'product' item.slug %}" target="_blank">
+            <div>
+                {% if item.img_file %}
+                    <img src="{{ item.img_file.url }}" alt="img not found">
+                {% endif %} 
+                <div class="info-dit-div">
+                    <p class="p-sub-1">{{item.title}}</p>
+                    <p class="p-sub-2"><strong>{{ item.price|floatformat:2|slice:":-3" }}</strong>,{{ item.price|floatformat:2|slice:"-2:" }}$</p>
+                </div>
+            </div>
+        </a>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

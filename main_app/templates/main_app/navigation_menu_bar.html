@@ -1,0 +1,78 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'main_app/css/navigation_menu_bar.css' %}">
+
+<nav class="grid_nav_container">
+	<div class="left_nav_container">
+		<div class="home_link">
+            <a href="{% url icon_link.home %}">
+                    <img src="{% static 'main_app/img/home.png' %}" alt="home img" >
+            </a>
+        </div>
+		<div class="sub_menu_change">
+            <div class="div-app-img-st"><a class="a-menu"><img id="menu-img-bt" src="{% static 'main_app/img/menu.png' %}" alt="menu img"></a></div>
+            <ul class="left_bt_side display_bar">
+                {% for item in menu_bar %} 
+                <li><a href="{% url item.url_name %}"><button class="menu_button_style">{{item.title}}</button></a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+	</div>
+	<div class="middle_nav_container">
+        <div>
+            <form>
+                <input class="search_bar" name="search_bar" placeholder="search" type="text">
+                <button class="bt_search" type="submit" title="search">
+                    <img id="search_img" src="{% static 'main_app/img/search.png' %}" alt="search img" width="22px">
+                </button>
+            </form>
+        </div>
+	</div>
+	<div class="right_nav_container">
+        <div class="user_nav_container">
+            {% if user.is_authenticated %}
+            <div class="user_menu_div">
+
+                <div class="username-div-link">
+                <a id="username-id-link" class="username_link" ondblclick="location.href='{% url logout_link.url_personal_area %}'">{{user.get_username}}</a>
+                </div>
+
+                <ul class="user_menu_ul display_none">
+                    {% for item in user_area_bar%}
+                    {% if item.url_name == 'logout' %}
+                    <li class="{{item.title}}_li">
+                        <a href="{% url item.url_name %}?next={{request.path}}"><button
+                                class="menu_button_style">{{item.title}}</button></a>
+                    </li>
+                    {% else %}
+                    <li class="{{item.title}}_li">
+                        <a href="{% url item.url_name %}"><button class="menu_button_style">{{item.title}}</button></a>
+                    </li>
+                    {% endif %}
+                    {%endfor%}
+                </ul>
+            </div>
+            <ul class="ul_logout">
+                <li><a href="{% url logout_link.url_name %}?next={{request.path}}">
+                    <button class="menu_button_style">{{logout_link.title}}</button></a>
+                </li>
+            </ul>
+            {% else %}
+            <div>
+                <ul class="ul_login">
+                    <li><a href="{% url login_link.url_name %}?next={{request.path}}"><button
+                                class="menu_button_style">{{login_link.title}}</button></a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+            <div class="shopping_cart_div">
+                <span id="cart_quantity">{{items_in_the_cart}}</span>
+                <a class="cart_link" href="{% url icon_link.shopping_cart %}">
+                    <img src="{% static 'main_app/img/shopping-cart.png' %}" alt="shopping-cart-img">
+                </a>
+            </div>
+        </div>
+	</div>
+</nav>
+<script src="{% static 'main_app/js/navigation_menu_bar.js' %}" type="text/javascript"></script>

@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'user_personal_area/css/add_item.css' %}">
+    <title>{{title}}</title>
+</head>
+<body>
+    <div class="main_container">
+        <header><h2> Add product form </h2></header>
+        <!--category to chose block-->
+        <div class="chose_category_container">
+            <h3 class='h3-chosen_cat display_none'></h3>
+            <div class="button_ch_cat_div"><button>Chose category<strong style="color:red;"> *</strong></button></div>
+            {% if category_objects %}
+                <div class="sub_chose_category display_none">
+                {% for value in category_objects %}
+                    <div id="items_category_container_{{value.id}}"  class="items_category_container" data-container="{{value.id}}">
+                        <header id="header_container_{{value.id}}" class="item_list_header" data-header="{{value.id}}">
+                            <h4 id="header_{{value.id}}" class="h4_header">{{value.name}}</h4> 
+                            <img id="down_img" class="img_down_{{value.id}}" src="{% static 'user_personal_area/img/down-arrow.png' %}">
+                            <img id='up_img' class="img_up_{{value.id}} display_none" src="{% static 'user_personal_area/img/up-arrow.png' %}">
+                        </header>
+                        <div class="list_category_div">
+                        {% if value.items %}
+                            <ul id="list_{{value.id}}" class="list_category">
+                                <li>
+                                <input id="search_bar_{{value.id}}" class="search_bar_input" type="text" name="{{value.id}}" placeholder="any key for search">
+                                </li>
+                                {% for item in value.items %}
+                                <label for="{{item.id}}" class="label_input_{{item.id}}"><li id="item_li_{{item.name}}">{{item.name}}</li></label>
+                                <input id="{{item.id}}" class="select_cat_class class-id_{{value.id}}"
+                                type="radio" name="{{value.id}}" value="{{item.name}}" data-slug="{{item.slug}}" data-category="{{value.slug}}">
+                                {%endfor%}
+                            </ul>
+                        {% else %}
+                        <ul class="list_category_empty">
+                            <li style="color:red;">category list is empty!</li>
+                        </ul>
+                        {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            
+            {% else %}
+            <p> Sorry! There is no any category </p>
+            {% endif %}
+
+        </div>
+        <!--title block-->
+        <div class="mar-all-style">
+            <div class="add_product_name">
+                <label for="name-product">Title of your product or name<strong style="color:red;"> *</strong></label>
+                <input id="name-product" type="text" placeholder="example: Monitor Odyssey G3 - G32A 24 Full HD Flat" required>
+            </div>
+        </div>
+        <!--price and quantity block-->
+        <div class="mar-all-style">
+            <div class="add_price_quantity">
+                <div>
+                <label for="price_field">Price:<strong style="color:red;"> *</strong></label>
+                <input id="price_field" type="number" name="price" min="0.01" step="0.01" value="0.00" required>
+                </div>
+                <div>
+                <label for="quantity_field">Quantity:<strong style="color:red;"> *</strong></label>
+                <input id="quantity_field" type="number" name="quantity" min="1" value="1" required>
+                </div>
+            </div>
+        </div>
+        <!--main image block-->
+        <div class="mar-all-style">
+            <p class="titles-des" data-limit="{{main_img_quan}}">Chose image files<strong style="color:red;"> *</strong></p>
+            <div id="add_img_files-id" class="add_img_files display_flex" data-img="{% static 'user_personal_area/img/image-upload.png' %}">
+                <div class="img-con-div" id="img-file-1" data-numb="1">
+                    <label for="input-file-1" id="drop-area-1">
+                        <input id="input-file-1" type="file" accept="image/*" hidden required>
+                        <div id="view_container-1" class="img_view_container background">
+                            <div id="dis-numb-1" class="display_number_count"><span id="span-num-1"></span></div>
+                            <img src="{% static 'user_personal_area/img/image-upload.png' %}" alt='upload img' id='upload_img-1' class="img-count-dt-0" data-bool="0">
+                            <p class="img_text-1 img_text-p">Drag and drop, or click here <br>to upload image</p>
+                        </div>
+                    </label>
+                    <div id="action-img-1" class="action-img-div display_none">
+                        <div class="make-main-img">
+                            <label for="input_im-1" class="check_box_item_container">
+                                <input id="input_im-1" class="check-input-1" type="radio" name="sek-main-img">
+                                <img class="unchecked" src="{% static 'user_personal_area/img/not-photo-gallery.png' %}" alt="checked png" title="Set as main avatar">
+                                <img id="main-pic-1" class="checked" src="{% static 'user_personal_area/img/photo-gallery.png' %}" alt="checked png" title="Main avatar">
+                            </label>
+                        </div>
+                        <div class="delete-img"><img id="delete-img-1" src="{% static 'user_personal_area/img/trash.png' %}" title=" Delete image"></div>
+                    </div>
+                </div>
+            </div>
+            <button id='img_button_error'></button>
+        </div>
+        <!--main video block-->
+        <div class="mar-all-style">
+            <p class="titles-des">Chose video file</p>
+            <div class="add_video_files">
+                <div class="action_div_cont">
+                    <div class="video_del_bt_div display_none"><img id="id-img-del" src="{% static 'user_personal_area/img/trash.png' %}" title="Delete video"></div>
+                <label for="input-video-file" id="drop-video-file">
+                    <input id="input-video-file" type="file" accept="video/*" hidden>
+                    <div id="view_video_container" class="video_view_container background">
+                        <p class="error_file_size display_none"></p>
+                        <img src="{% static 'user_personal_area/img/upload-video.png' %}" alt='upload img' id='upload_img-video'>
+                        <p class="img_text-video img_text-p">Drag and drop, or click here to upload video</p>
+                    </div>
+                </label>
+                </div>
+                <video id="dp-cat" class="display_none" controls>
+                    <source id="video-source-cat" src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+        <!--product description block-->
+        <div class="mar-all-style">
+            <p class="titles-des">Discribe your product</p>
+            <div class="add_item_description">
+                <div class="title-descrip-d" data-limit="{{des_img_quan}}">
+                    <label for="t-d-i">Description title<strong style="color:red;"> *</strong></label>
+                    <input id="t-d-i" type="text">
+                </div>
+                <!--description fields block-->
+                <div class="com-descrip-d">
+                    <div id="it-descript-di-1" class="it-descript-d" data-numb="1">
+                        <div id="i-descrip-d-1" class="i-descrip-d">
+                            <label for="ta-d-i-1" class="descrip-label-des">Description: 1<strong style="color:red;"> *</strong></label>
+                            <textarea id="ta-d-i-1" class="com-ta-d-i" name="1" ></textarea> 
+                        </div>
+                        <div id="f-descrip-d-1" class="f-descrip-d display_flex" data-numb="1">
+                            <div class="img-con-div-des" id="img-file-des-1" data-numb="1">
+                                <label for="input-file-des-1" id="drop-area-des-1">
+                                    <input id="input-file-des-1" type="file" accept="image/*" hidden>
+                                    <div id="view_container-des-1" class="img_view_container-des background">
+                                        <div id="dis-numb-des-1" class="display_number_count"><span id="span-num-des-1"></span></div>
+                                        <img src="{% static 'user_personal_area/img/image-upload.png' %}" alt='upload img' id='upload_img-des-1' class="img-count-data-1" data-numb="1">
+                                        <p class="img_text-des-1 img_text-p">Drag and drop, or click here <br>to upload image</p>
+                                    </div>
+                                </label>
+                                <div id="action-img-des-1" class="action-img-div display_none">
+                                    <div class="delete-img"><img id="delete-img-des-1" src="{% static 'user_personal_area/img/trash.png' %}" title=" Delete image"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="del-description-sec"><button id="del-des-sec-1">
+                            Delete description<img src="{% static 'user_personal_area/img/trash.png' %}">
+                        </button></div>
+                    </div>
+                </div>
+                <div class="add-description-con"><button id="add-descript-c">
+                    Add description<img src="/static/user_personal_area/img/plus.png"></button>
+                </div>
+                <!--table specification block-->
+                <div class="sp-descrip-d">
+                    <div class="sp-d-d">
+                        <p class="text-sp-cl"> <b>Please fill up this fields for better search of your product!</b></p>
+                        <div id="field_inform_cat">
+                            <ul>
+                            </ul>
+                        </div>
+                        <p class="text-sp-cl">Other information of product </p>
+                        <div class="sp-in-cl">
+                            <ul class="ul-oth-info">
+                                <li>
+                                <label for="te-of-sp">Type:</label>
+                                <input id="te-of-sp" type="text" placeholder="example: name">
+                                </li>
+                                <li>
+                                <label for="te-de-of-sp">Type description:</label>
+                                <input id="te-de-of-sp" type="text" placeholder="value">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sp-bt-cl"><button id="bt-add-spec">Add</button><button id="bt-clear-spec">Clear</button></div>
+                    </div>
+                    <table class="table-style-c">
+                        <tr id='tr-1-sp-1'>
+                        </tr>
+                        <tr id='tr-2-sp-1'>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="load-anim-icon" class="display_none">
+            <span>Please wait! It may take a few minutes to upload files.</span>
+            <img src="{% static 'user_personal_area/img/loading-dots.png' %}" class="spiner" alt="">
+        </div>
+        <div class="send-form-bt-p">
+            <form id="send_form_files" enctype="multipart/form-data">
+                {% csrf_token %}
+                <button id="send_button_form" type="submit">Create product</button>
+            </form>
+        </div>
+        <div class="error-div-style"></div>
+    </div>
+    <footer>
+        {%if sub_category%}
+        {%for i in sub_category%}
+        {{i.name}}
+        {%endfor%}
+        {%endif%}
+    </footer>
+</body>
+<script src="{% static 'user_personal_area/js/user_product_edit.js' %}" type="text/javascript"></script>
+</html>

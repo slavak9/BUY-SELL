@@ -1,0 +1,36 @@
+{% extends 'main_app/main.html' %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block main %}
+<link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<div class="main_login_div">
+    <div class="sub_login_div">
+        <p class="login_error_message">{{form_error}}</p>
+        <form method="post" id="login-form-submit">
+            {% csrf_token %}
+            <ul class="field_login">
+                <li>
+                    <label for="id_email">Email:</label>
+                    <input id="id_email" type="text" name="email" autofocus="" autocapitalize="none" autocomplete="email"
+                        maxlength="250" required="" placeholder="Enter Email or Username">
+                </li>
+                <li>
+                    <label for="id_password">Password:</label>
+                    <input id="id_password" type="password" name="password" required="" placeholder="Enter password">
+                </li>
+            </ul>
+            <div class="button_log_div"><button type="submit">Login</button></div>
+            <ul class="link_field">
+                <li><a href="{% url registration.url_name %}">{{ registration.title }}</a></li>
+                <li><a href="{% url forgot_password.url_name %}">{{ forgot_password.title }}</a></li>
+            </ul>
+        </form>
+        <div>
+
+        </div>
+    </div>
+</div>
+<script src="{% static 'accounts/js/login.js' %}"></script>
+{% endblock %}

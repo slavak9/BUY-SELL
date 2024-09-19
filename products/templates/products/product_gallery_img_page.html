@@ -1,0 +1,17 @@
+{% extends 'main_app/main.html'%}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block main %}
+
+<link rel="stylesheet" href="{% static 'products/css/img_product_gallery.css' %}">
+    <div class="show_img_gallery_item_div_outer">
+        <h1 >{{ detail_product.title }}</h1>
+        <a href="{% url 'product' detail_product.slug %}" class="close_img_gallery_bt">
+            <img src="{% static 'products/img/cross.png' %}" alt="close button" title="close gallery">
+        </a>
+       {% for img in product_img_hd %}
+            <div class="show_img_gallery_item_div_inner"><img src="{{img.img_file.url}}" alt="img.title"></div>
+        {% endfor %}
+    </div>
+{% endblock %}

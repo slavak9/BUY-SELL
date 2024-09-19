@@ -1,0 +1,99 @@
+{% extends 'main_app/main.html'%}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block main %}
+<link rel="stylesheet" href="{% static 'shopping_cart/css/shopping_cart.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+{% if list_of_products %}
+<div class="main_container_cart_div">
+    <!-- total price and buy of cart section -->
+    <div class="cart_check_out_div">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sed labore ipsum veritatis reiciendis quaerat
+            perspiciatis similique autem dicta quos!</p>
+        <div class='total_div_container'>
+            <span>Total:</span><strong class="total_price_of_selected_items"></strong>
+        </div>
+        <div class="checkout_button_container">
+           <div>
+            <form method='post'>
+            {% csrf_token %}
+                <button id="checkout_button" class="checkout_bt_style" type="submit">Checkout</button>
+            </form>
+           </div>
+        </div>
+        {% if checkout_form_error %}
+            <p>{{checkout_form_error}}</p>
+        {% endif %}
+    </div>
+    <!-- product item list section -->
+    <div class="sub_product_container_div">
+        {% for item in list_of_products%}
+        <div class="detail_product_div" data-product_id="{{item.product_id}}">
+            <!-- check and img section -->
+            <div class="check_img_container">
+                <div class="checkbox_div">
+                    <label for="input_{{item.product_id}}" class="check_box_item_container">
+                        <input id="input_{{item.product_id}}" class="check-input-{{item.product_id}}" type="checkbox"
+                            checked="check" name="{{item.product_id}}">
+                        <img class="unchecked" src="{% static 'main_app/img/round_unchecked.png' %}" alt="checked png">
+                        <img class="checked" src="{% static 'main_app/img/round_checked.png' %}" alt="checked png">
+                    </label>
+                </div>
+                <div class="img_div">
+                    <a href="{% url 'product' item.slug %}"><img src="{{item.img_file.url}}" alt="{{item.title}} img"></a>
+                </div>
+            
+            </div>
+            <!-- item description section -->
+            <div class="description_container_div">
+                <a href="{% url 'product' item.slug %}"><h4>{{item.title}}</h4></a>
+                <p class="product_price_{{item.product_id}}" data-price="{{item.price}}">{{item.price|floatformat:2}}$</p>
+            </div>
+            <!-- quantity, delete and total for each item section  -->
+            <div class="action_container_div">
+                <div class="delete_div">
+                    <button class="item_delete_button">
+                        <img class="img_delete" id="img_delete_{{item.product_id}}"
+                        src="{% static 'main_app/img/trash.png' %}" alt="trash png">
+                    </button>
+                </div>
+                <!-- display and calculate quantity section -->
+                <div id="{{item.product_id}}" class="quantity">
+                    <span class="display_quantity">Quantity</span>
+                    <div class="minus_plus">
+                        <button id="minus__bt" class="minus_{{item.product_id}}">
+                            <img src="{% static 'products/img/minus.png' %}" alt="minus_button">
+                        </button>
+                        <label for="product_quantity_{{item.product_id}}">
+                            <input id="product_quantity_{{item.product_id}}"
+                                type="text" value="{{item.user_quantity}}"
+                                title="Quantity value" class="input_Product_Quantity border_style_default">
+                        </label>
+                        <button id="plus__bt" class="plus_{{item.product_id}}">
+                            <img src="{% static 'products/img/plus.png' %}" alt="plus_button">
+                        </button>
+                    </div>
+                    <span class="display_error_quantity" id="error_quant_{{item.product_id}}">Quantity must be from 1 to
+                        <span id="quantity_available_{{item.product_id}}">{{item.available_quantity}}</span></span>
+                    <span class="display_quantity_in_store">Quantity available: {{item.available_quantity}}</span>
+                </div>
+                <!-- display total price per item -->
+                <div class="total_div_cont">
+                    <span>Total:</span> <span class="total_count_sum_{{item.product_id}}">{{item.total_price}}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+    <h3 class="empty_list_item" style='text-align: center;'>You don't have any items in the cart!</h3>
+{% endif %}
+
+<script src="{% static 'shopping_cart/js/shopping_cart.js' %}"></script>
+<script type="text/javascript">
+
+
+</script>
+{% endblock %}

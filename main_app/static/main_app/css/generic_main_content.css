@@ -1,0 +1,34 @@
+/* discribs all page
+
+<general-grid-section >
+    <product>this is left   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum quidem laudantium magnam! Quia labore quidem eveniet id ipsa, illo enim porro quasi? Eos placeat minus porro rem laudantium dolorem, omnis dolores minima repudiandae rerum esse ullam quidem repellendus provident obcaecati?</aside>
+    !! ATHER INFO !!
+    <product>this is right   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam quis quisquam repellendus accusantium, saepe temporibus iste voluptatibus possimus libero repudiandae rem eveniet aliquid veritatis itaque sequi dolores dolor recusandae! Nisi iste adipisci facilis nesciunt ab inventore deleniti fuga veniam beatae.</aside>
+</general-grid-section>
+
+*/
+general-grid-section{
+    display: grid;
+    grid-template-areas:
+    'left-aside main-section main-section main-section main-section main-section main-section right-aside'
+  ;
+}
+
+general-grid-section general-side-left{
+    grid-area: left-aside;
+}
+
+general-grid-section general-main-section{
+    grid-area: main-section;
+}
+general-grid-section general-side-right{
+    grid-area: right-aside;
+}
+
+@media screen and (max-width: 900px){
+    general-grid-section{
+        grid-template-areas:
+        'left-aside main-section main-section main-section main-section'
+        'left_aside right-aside right-aside right-aside right-aside'    ;  
+    }
+}

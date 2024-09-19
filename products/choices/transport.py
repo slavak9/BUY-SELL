@@ -1,0 +1,11 @@
+transport = {'Cars': {'brand': {'abarth': {}, 'acura': {}, 'alfa romeo': {}, 'aston martin': {},
+ 'audi': {'generation': {'a1', 'a7', 'a8', 'a5', 'a6', 'q6 e-tron', 'a3', 'q8 e-tron', 'e-tron gt', 'q7',
+ 'a6 e-tron', 'r8', 'q3', 'tt', 'q4 e-tron', 'q2', 'q8', 'a4', 'q5'}}, 'bentley': {}, 'bmw': {}, 'buick': {},
+ 'cadillac': {}, 'chevrolet': {}, 'chrysler': {}, 'citroen': {}, 'dacia': {}, 'dodge': {}, 'ferrari': {},
+ 'fiat': {}, 'ford': {}, 'gmc': {}, 'honda': {}, 'hummer': {}, 'hyundai': {}, 'infiniti': {}, 'isuzu': {},
+ 'jaguar': {}, 'jeep': {}, 'kia': {}, 'lamborghini': {}, 'lancia': {}, 'land rover': {}, 'lexus': {},
+ 'lincoln': {}, 'lotus': {}, 'maserati': {}, 'mazda': {}, 'mercedes benz': {}, 'mercury': {}, 'mini van': {},
+ 'mitsubishi': {}, 'nissan': {}, 'opel': {}, 'peugeot': {}, 'pontiac': {}, 'porsche': {}, 'ram': {},
+ 'renault': {}, 'saab': {}, 'saturn': {}, 'scion': {}, 'seat': {}, 'skoda': {}, 'smart': {}, 'ssangyong': {},
+ 'subaru': {}, 'suzuki': {}, 'tesla': {}, 'toyota': {}, 'volkswagen': {}, 'volvo': {},
+ 'wiesmann': {}}}}
